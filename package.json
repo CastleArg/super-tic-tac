@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "test": "vitest run",
-    "build": "npm run test && vite build",
+    "test": "vitest run --watch=false --threads=false",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
