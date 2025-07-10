@@ -17,31 +17,32 @@ export default function Board({ xIsNext, squares, onPlay, boardSize, calculateWi
     status = "Next player: " + (xIsNext ? "X" : "O");
   }
 
-  // Render board rows dynamically
-  const rows = [];
-  for (let row = 0; row < boardSize; row++) {
-    const squaresInRow = [];
-    for (let col = 0; col < boardSize; col++) {
-      const idx = row * boardSize + col;
-      squaresInRow.push(
-        <Square
-          key={idx}
-          value={squares[idx]}
-          onSquareClick={() => handleClick(idx)}
-        />
-      );
-    }
-    rows.push(
-      <div className="board-row" key={row}>
-        {squaresInRow}
-      </div>
+  // Render all squares in a flat array for CSS Grid
+  const gridSquares = [];
+  for (let idx = 0; idx < boardSize * boardSize; idx++) {
+    gridSquares.push(
+      <Square
+        key={idx}
+        value={squares[idx]}
+        onSquareClick={() => handleClick(idx)}
+      />
     );
   }
 
   return (
     <>
       <div className="status">{status}</div>
-      {rows}
+      <div
+        className="board"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${boardSize}, 34px)`,
+          gridTemplateRows: `repeat(${boardSize}, 34px)`,
+          gap: 0
+        }}
+      >
+        {gridSquares}
+      </div>
     </>
   );
 }
